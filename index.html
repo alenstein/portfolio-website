@@ -1,452 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Allen's Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
-    <link rel="manifest" href="assets/site.webmanifest">
-  </head>
-  <body>
-    <nav id="desktop-nav">
-      <div class="logo">Allen Sibanda</div>
-      <div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allen Sibanda - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Allen Sibanda</div>
         <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
-    <nav id="hamburger-nav">
-      <div class="logo">Allen Sibanda</div>
-      <div class="hamburger-menu">
-        <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="menu-links">
-          <li><a href="#about" onclick="toggleMenu()">About</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
-      </div>
-    </nav>
-    <section id="profile">
-      <div class="section__pic-container">
-        <img src="./assets/profile-pic.jpeg" alt="Allen Sibanda profile picture" />
-      </div>
-      <div class="section__text">
-        <p class="section__text__p1">Hello, I'm</p>
-        <h1 class="title">Allen Sibanda</h1>
-        <p class="section__text__p2">Solutions Developer</p>
-        <div class="btn-container">
-          <button
-            class="btn btn-color-2"
-            onclick="window.open('./assets/sibanda-allen-resume.pdf')"
-          >
-            Download CV
-          </button>
-          <button class="btn btn-color-1" onclick="location.href='./#contact'">
-            Contact Info
-          </button>
-        </div>
-        <div id="socials-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="My LinkedIn profile"
-            class="icon"
-            onclick="location.href='https://www.linkedin.com/in/allen-sibanda-a5905b149/'"
-          />
-          <img
-            src="./assets/github.png"
-            alt="My Github profile"
-            class="icon"
-            onclick="location.href='https://github.com/alenstein'"
-          />
-        </div>
-      </div>
-    </section>
-    <section id="about">
-      <p class="section__text__p1">Get To Know More</p>
-      <h1 class="title">About Me</h1>
-      <div class="section-container">
-        <div class="section__pic-container">
-          <img
-            src="./assets/about-pic.png"
-            alt="Profile picture"
-            class="about-pic"
-          />
-        </div>
-        <div class="about-details-container">
-          <div class="about-containers">
-            <div class="details-container">
-              <img
-                src="./assets/experience.png"
-                alt="Experience icon"
-                class="icon"
-              />
-              <h3>Experience</h3>
-              <p>1+ years <br /><strong>Backend Development</strong></p>
-              <br>
-              <p>9+ months <br /><strong>Electrical Engineering</strong></p>
-              <br>
-              <p>3+ months <br /><strong>IT</strong></p>
-              <br>
-            </div>
-            <div class="details-container">
-              <img
-                src="./assets/education.png"
-                alt="Education icon"
-                class="icon"
-              />
-              <h3>Education</h3>
-              <p>B.Hons. Bachelors Degree in Electronic Engineering (NUST Zimabwe)</p>
-              <p>Certification, Introduction to Network Automation (Coursera)</p>
-              <p>Networking (Cisco)</p>
-              <p>Protection and Control: High-Voltage Power Circuits (Alison)</p>
-              <p>IoT Engineer (Sciency Maker Labs)</p>
-
-            </div>
-          </div>
-          <div class="text-container">
-            <p>
-              A self-motivated and disciplined team player who is open minded, has a practical and logical
-              approach to problem solving and seeing things through to completion with excellent work ethic.
-            </p>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#experience'"
-      />
-    </section>
-    <section id="experience">
-      <p class="section__text__p1">Explore My</p>
-      <h1 class="title">Experience</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container">
-            <h2 class="experience-sub-title">Frontend Development</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>HTML</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>CSS</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Django Templating</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Bootstrap</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>JavaScript</h3>
-                  <p>Basic</p>
-                </div>
-              </article>
-            </div>
-          </div>
-
-         <div class="details-container">
-            <h2 class="experience-sub-title">Backend Development</h2>
-            <div class="article-container">
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>PostgreSQL</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Django and Django REST Framework</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Linux</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Bash </h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-
-
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Nginx</h3>
-                  <p>Intermediate</p>
-                </div>
-              </article>
-              <article>
-                <img
-                  src="./assets/checkmark.png"
-                  alt="Experience icon"
-                  class="icon"
-                />
-                <div>
-                  <h3>Git</h3>
-                  <p>Experienced</p>
-                </div>
-              </article>
-            </div>
-          </div>
-
-          <div class="details-container">
-            <h2 class="experience-sub-title">Network Engineering Skills and Tools</h2>
-            <div class="article-container">
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <h3>IP Addressing and Subnetting</h3>
-                  <p>IPv4/IPv6, subnetting, NAT, DHCP</p>
-                </div>
-              </article>
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <h3>Network Device Configuration</h3>
-                  <p>Routers, switches, VLANs, CLI, security settings</p>
-                </div>
-              </article>
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <h3>Network Troubleshooting</h3>
-                  <p>Diagnostic techniques, protocol analysis, common issue resolution (Wireshark)</p>
-                </div>
-              </article>
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <h3>Network Fundamentals</h3>
-                  <p>OSI/TCP-IP models, Ethernet/wireless standards, protocols (HTTP, FTP, SMTP), topologies</p>
-                </div>
-              </article>
-              <article>
-                <img src="./assets/checkmark.png" alt="Experience icon" class="icon" />
-                <div>
-                  <h3>IoT and Digital Transformation</h3>
-                  <p>IoT architecture, network security, sensor networks, device management</p>
-                </div>
-              </article>
-            </div>
-          </div>
-
-
-        </div>
-
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#projects'"
-      />
-    </section>
-    <section id="projects">
-      <p class="section__text__p1">Browse My Recent</p>
-      <h1 class="title">Projects</h1>
-      <div class="experience-details-container">
-        <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-1.png"
-                alt="Pingit"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Pingit</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/alenstein/pingit'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://www.pingit.co.zw'"
-              >
-                Live Demo
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-2.png"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Water Infrastructure Management System</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/alenstein/SCADA_PROTOTYPE_A'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='http://16.16.198.132:8000/dashboard/'"
-              >
-                Live Demo
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./assets/project-3.png"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Smart Parking System</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='https://github.com/alenstein/smart_parking_system-'"
-              >
-                Github
-              </button>
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='#'"
-              >
-                Live Demo
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <img
-        src="./assets/arrow.png"
-        alt="Arrow icon"
-        class="icon arrow"
-        onclick="location.href='./#contact'"
-      />
-    </section>
-    <section id="contact">
-      <p class="section__text__p1">Get in Touch</p>
-      <h1 class="title">Contact Me</h1>
-      <div class="contact-info-upper-container">
-        <div class="contact-info-container">
-          <img
-            src="./assets/email.png"
-            alt="Email icon"
-            class="icon contact-icon email-icon"
-          />
-          <p><a href="mailto:sibandallen@gmail.com">sibandallen@gmail.com</a></p>
-        </div>
-        <div class="contact-info-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="LinkedIn icon"
-            class="icon contact-icon"
-          />
-          <p><a href="https://www.linkedin.com">LinkedIn</a></p>
-        </div>
-      </div>
-    </section>
-    <footer>
-      <nav>
-        <div class="nav-links-container">
-          <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
-          </ul>
+            <li><button id ="theme-toggle" class="btn-toggle" aria-label="Toggle Light/Dark Mode">🌙</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <h1>Hello, I'm Allen Sibanda</h1>
+        <p>Final year Electronics Engineering student with a passion for backend engineering and IoT</p>
+        <a href="#projects" class="button">View My Work</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <img src="./assets/about-pic.png" alt="Profile picture" class="about-pic">
+            <div class="about-details">
+                <div class="details-box">
+                    <img src="./assets/experience.png" alt="Experience" class="icon">
+                    <h3>Experience</h3>
+                    <p>1+ years <br><strong>Backend Development</strong></p>
+                    <p>9+ months <br><strong>Electrical Engineering</strong></p>
+                    <p>3+ months <br><strong>IT</strong></p>
+                </div>
+
+                <div class="details-box">
+                    <img src="./assets/education.png" alt="Education" class="icon">
+                    <h3>Education</h3>
+                    <p>B.Hons. Electronics Engineering, NUST Zimbabwe</p>
+                    <p>Introduction to Network Automation (Coursera)</p>
+                    <p>Networking (Cisco)</p>
+                    <p>IoT Engineer (Sciency Maker Labs)</p>
+                </div>
+            </div>
         </div>
-      </nav>
-      <p>Copyright &#169; 2024 Allen Sibanda. All Rights Reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-  </body>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2>Tech Stack</h2>
+        <div class="experience-container">
+            <!-- Frontend -->
+            <div class="stack-box">
+                <h3>Frontend Development</h3>
+                <ul>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">HTML - Experienced</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">CSS - Experienced</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">JavaScript - Basic</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Bootstrap - Intermediate</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Django Templating - Intermediate</li>
+                </ul>
+            </div>
+
+            <!-- Backend -->
+            <div class="stack-box">
+                <h3>Backend Development</h3>
+                <ul>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">PostgreSQL - Experienced</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Django/Django REST - Intermediate</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Linux - Experienced</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Bash - Experienced</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Nginx - Intermediate</li>
+                </ul>
+            </div>
+
+            <!-- Network Engineering -->
+            <div class="stack-box">
+                <h3>Network Engineering</h3>
+                <ul>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">IP Addressing & Subnetting</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Network Configuration</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Network Troubleshooting (Wireshark)</li>
+                    <li><img src="./assets/checkmark.png" alt="Check" class="icon">Network Fundamentals</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+<!-- --> -->
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-list">
+            <div class="project-card">
+                <img src="./assets/project-1.png" alt="Pingit" class="project-img">
+                <h3>Pingit</h3>
+                <div class="btn-container">
+                    <a href="https://github.com/alenstein/pingit" class="btn">GitHub</a>
+                    <a href="https://www.pingit.co.zw" class="btn">Live Demo</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="./assets/project-2.png" alt="Water Management System" class="project-img">
+                <h3>Water Management System</h3>
+                <div class="btn-container">
+                    <a href="https://github.com/alenstein/SCADA_PROTOTYPE_A" class="btn">GitHub</a>
+                    <a href="http://16.16.198.132:8000/dashboard/" class="btn">Live Demo</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="./assets/project-3.png" alt="Smart Parking System" class="project-img">
+                <h3>Smart Parking System</h3>
+                <div class="btn-container">
+                    <a href="https://github.com/alenstein/smart_parking_system-" class="btn">GitHub</a>
+                    <a href="#" class="btn">Live Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <img src="./assets/email.png" alt="Email" class="icon">
+                <p><a href="mailto:sibandallen@gmail.com">sibandallen@gmail.com</a></p>
+            </div>
+            <div class="contact-item">
+                <img src="./assets/linkedin.png" alt="LinkedIn" class="icon">
+                <p><a href="https://linkedin.com/in/allensibanda" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></p>
+            </div>
+        </div>
+    </section>
+</body>
 </html>
