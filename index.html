@@ -1,559 +1,1045 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=yes"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allen Sibanda - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/imgs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/imgs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/imgs/favicon-16x16.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon">
+  <meta name="theme-color" content="#FF7A57">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF7A57',
+            secondary: '#6366F1',
+            light: '#FFFFFF',
+            dark: '#181818',
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.5s ease-in-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Navigation Styles */
+    .nav-link {
+      position: relative;
+      color: #4B5563;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
 
-    <meta name="description" content="Allen's.space" />
-    <meta name="author" content="Allen Sibanda" />
-    <title>Allen Sibanda - Portfolio</title>
-    <!-- font icons -->
-    <link
-      rel="stylesheet"
-      href="assets/vendors/themify-icons/css/themify-icons.css"
-    />
-    <!-- Bootstrap + Steller main styles -->
-    <link rel="stylesheet" href="assets/css/steller.css" />
+    .dark .nav-link {
+      color: #9CA3AF;
+    }
 
-    <!-- favicon -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="assets/imgs/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/imgs/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="assets/imgs/favicon-16x16.png"
-    />
-    <link rel="manifest" href="assets/site.webmanifest" />
-  </head>
-  <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-    <!-- Page navigation -->
-    <nav
-      class="navbar navbar-expand-lg navbar-light fixed-top"
-      data-spy="affix"
-      data-offset-top="0"
-    >
-      <div class="container">
-        <a class="navbar-brand" href="#"
-          ><img src="assets/imgs/favicon.ico" alt=""
-        /></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #FF7A57;
+      transition: width 0.3s;
+    }
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mr-auto align-items-center">
-            <li class="nav-item">
-              <a class="nav-link" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#service">Services  </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#portfolio">Portfolio</a>
-            </li>
+    .nav-link:hover {
+      color: #FF7A57;
+    }
 
+    .nav-link:hover::after {
+      width: 100%;
+    }
 
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
-            </li>
+    .mobile-nav-link {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #4B5563;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
 
-          </ul>
+    .dark .mobile-nav-link {
+      color: #9CA3AF;
+    }
 
-        </div>
-          <a class="- btn btn-primary rounded ml-4" href="#contact"
-            >Let's Connect</a
-          >
+    .mobile-nav-link:hover {
+      background-color: #FF7A57;
+      color: white;
+    }
+
+    /* Progress Bar Styles */
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: #E5E7EB;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .dark .progress-bar {
+      background-color: #374151;
+    }
+
+    .progress {
+      height: 100%;
+      background-color: #FF7A57;
+      border-radius: 9999px;
+      transition: width 1s ease-in-out;
+    }
+
+    /* Typing Text Animation */
+    .typing-text {
+      position: relative;
+      height: 3rem;
+      overflow: hidden;
+    }
+
+    .typing-text-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: typingAnimation 12s infinite;
+    }
+
+    .typing-text-line:nth-child(1) { animation-delay: 0s; }
+    .typing-text-line:nth-child(2) { animation-delay: 4s; }
+    .typing-text-line:nth-child(3) { animation-delay: 8s; }
+
+    @keyframes typingAnimation {
+      0%, 27% { opacity: 0; transform: translateY(20px); }
+      3%, 24% { opacity: 1; transform: translateY(0); }
+      30%, 100% { opacity: 0; transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body class="bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-300">
+  <!-- Header -->
+  <header class="fixed w-full bg-white/80 dark:bg-dark/80 backdrop-blur-sm z-50 shadow-sm transition-colors duration-300">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="flex items-center space-x-2">
+        <img src="assets/imgs/favicon.ico" alt="Logo" class="w-10 h-10 object-contain">
+        <span class="text-2xl font-bold text-primary">Allen's Space</span>
+      </a>
+
+      <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300">
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:block"></i>
+      </button>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex space-x-8">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-menu" class="hidden lg:hidden bg-white dark:bg-dark shadow-md transition-colors duration-300">
+      <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
+        <a href="#home" class="mobile-nav-link py-2">Home</a>
+        <a href="#about" class="mobile-nav-link py-2">About</a>
+        <a href="#skills" class="mobile-nav-link py-2">Skills</a>
+        <a href="#projects" class="mobile-nav-link py-2">Projects</a>
+        <a href="#contact" class="mobile-nav-link py-2">Contact</a>
       </div>
     </nav>
-    <!-- End of page navibation -->
+  </header>
 
-	<header class="header" id="home">
-		<div class="container">
-		  <div class="row align-items-center">
-			<div class="col-md-7 text-center text-md-left">
-			  <div class="infos">
-				<h6 class="subtitle">hello, I'm</h6>
-				<h1 class="title">Allen Sibanda</h1>
-				<p><a href="https://git.io/typing-svg">
-				  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=25&pause=1000&color=FF7A57&width=500&height=80&lines=Electronic+Engineer;Backend+and+IoT+developer;I+solve+problems;I+build+amazing+websites;And+develop+scalable+web+apps;Let's+connect+and+solve+problems" alt="Typing SVG" class="img-fluid" />
-				</a></p>
-				<div class="buttons pt-3">
-				  <button class="btn btn-primary rounded">HIRE ME</button>
-				  <button class="btn btn-dark rounded">DOWNLOAD CV</button>
-				</div>
-			  </div>
-			</div>
-			<div class="col-md-5 d-none d-md-block">
-			  <div class="img-holder">
-				<img src="assets/imgs/man.jpg" alt="Profile Image" class="img-fluid" />
-			  </div>
-			</div>
-		  </div>
-		</div>
-	  </header>
-
-
-    <!-- About section -->
-    <section id="about" class="section mt-3">
-      <div class="container mt-5">
-        <div class="row text-center text-md-left">
-          <div class="col-md-3">
-            <img
-              src="assets/imgs/avatar.jpeg"
-              alt=""
-              class="img-thumbnail mb-4"
-            />
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center pt-20 pb-10">
+    <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center">
+      <div class="lg:w-1/2 animate-fade-in mb-10 lg:mb-0">
+        <h6 class="text-lg text-primary mb-2">Hi, I'm</h6>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+          <span class="text-primary">Allen Sibanda</span>
+        </h1>
+        <div class="text-2xl md:text-3xl font-medium text-gray-600 dark:text-gray-400 mb-6">
+          <div class="typing-text">
+            <span class="typing-text-line">Electronic Engineer</span>
+            <span class="typing-text-line">Backend and IoT Developer</span>
+            <span class="typing-text-line">Problem Solver</span>
           </div>
-          <div class="pl-md-4 col-md-9">
-            <h6 class="title">Allen Sibanda</h6>
-            <p class="subtitle">Backend Developer</p>
-            <p>
-              2024 first division Electronic Engineering graduate. With a strong
-              foundation in software development, backend engineering, and
-              Information Technology, I am highly motivated and
-              results-oriented.
-            </p>
-            <p>
-              My curiosity and commitment to innovation drive me to explore and
-              apply advancements in the industry. Equipped with junior practical
-              experience in Python, Django, and backend engineering, I am eager
-              to contribute effectively to software development teams by
-              building scalable, efficient solutions..
-            </p>
-            <button class="btn btn-primary rounded mt-3">DOWNLOAD CV</button>
+        </div>
+        <p class="text-lg mb-8 max-w-lg">
+          2024 first division Electronic Engineering graduate with a strong foundation in software development,
+          backend engineering, and Information Technology. I build scalable, efficient solutions and innovative IoT applications.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#contact" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary transition-colors duration-300 shadow-lg hover:shadow-xl">
+            Hire Me
+          </a>
+          <a href="assets/Sibanda_Allen_CV.pdf"" class="border-2 border-primary text-primary dark:text-gray-200 px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white dark:hover:text-white transition-colors duration-300">
+            Download CV
+          </a>
+        </div>
+
+        <!-- Social Links -->
+        <div class="container mx-auto px-3">
+          <div class="flex justify-left space-x-5 mt-8">
+            <a href="https://www.linkedin.com/in/allen-sibanda-a5905b149/" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300">
+              <i class="fab fa-linkedin-in text-2xl"></i>
+            </a>
+            <a href="https://github.com/alenstein/" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300">
+              <i class="fab fa-github text-2xl"></i>
+            </a>
+            <a href="mailto:sibandallen@gmail.com" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300">
+              <i class="fas fa-envelope text-2xl"></i>
+            </a>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Service section -->
-    <section id="service" class="section">
-      <div class="container text-center">
-        <h6 class="subtitle">Services</h6>
-        <h6 class="section-title mb-4">What I Do</h6>
-        <p class="mb-5 pb-4">
-          I offer a range of services including backend engineering for web applications, IoT solutions, and MCU-based project prototyping.<br>
-            My expertise extends to API integration, system design, and cloud infrastructure deployment, ensuring scalable and <br>
-             efficient systems. I can develop customized web applications using Django and PostgreSQL, automate processes <br>
-             using Python scripts, and create real-time data analytics solutions. Additionally, I can set up smart homes, ticketing systems, <br>
-              and SOHO networks, delivering reliable, connected environments tailored to specific needs.
-        </p>
-
-        <div class="row">
-
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-server"></i>
-                    <h5>Backend Engineering</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-signal"></i>
-                    <h5>IoT Solutions</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-agenda"></i>
-                    <h5>MCU Prototyping</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-plug"></i>
-                    <h5>API Integration</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-cloud"></i>
-                    <h5>Cloud Deployment</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-bar-chart"></i>
-                    <h5>Data Analytics</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-home"></i>
-                    <h5>Smart Home Setup</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-rss"></i>
-                    <h5>SOHO Network Setup</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-3 mb-4">
-                <div class="custom-card card border">
-                  <div class="card-body">
-                    <i class="icon ti-ticket"></i>
-                    <h5>Ticketing Systems</h5>
-                  </div>
-                </div>
-              </div>
-
+      <!-- Stats Section -->
+      <div class="lg:w-1/2 flex flex-col items-center animate-fade-in">
+        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center overflow-hidden">
+          <img src="assets/imgs/avatar.svg" alt="Allen Sibanda" class="w-full h-full object-cover">
         </div>
-      </div>
-    </section>
-    <!-- End of Sectoin -->
 
-<!-- Skills section -->
-<section class="section">
-  <div class="container text-center">
-    <h6 class="subtitle">Skills</h6>
-    <h6 class="section-title mb-4">Why Choose Me</h6>
-    <p class="mb-5 pb-4">
-      I possess a diverse skill set in backend development, cloud hosting, networking, and IoT technology. My expertise enables me to implement solutions to innovative projects.
-    </p>
-
-    <div class="row text-left">
-      <div class="col-sm-6">
-        <h6 class="mb-3">Backend Development</h6>
-        <p>
-          <img src="https://img.shields.io/badge/Python%20-%2314354C.svg?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
-          <img src="https://img.shields.io/badge/Django%20-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white" alt="Django" />
-          <img src="https://img.shields.io/badge/Django%20REST%20Framework-%23E535AB.svg?style=for-the-badge&logo=django&logoColor=white" alt="Django REST Framework" />
-          <img src="https://img.shields.io/badge/Kafka-%23333A30.svg?style=for-the-badge&logo=apachekafka&logoColor=white" alt="Kafka" />
-          <img src="https://img.shields.io/badge/RabbitMQ-%23FF6600.svg?style=for-the-badge&logo=rabbitmq&logoColor=white" alt="RabbitMQ" />
-          <img src="https://img.shields.io/badge/Prometheus-%23E6522B.svg?style=for-the-badge&logo=prometheus&logoColor=white" alt="Prometheus" />
-          <img src="https://img.shields.io/badge/Grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white" alt="Grafana" />
-          <img src="https://img.shields.io/badge/Microservices-%23f0db4f.svg?style=for-the-badge&logo=docker&logoColor=black" alt="Microservices" />
-
-        </p>
-      </div>
-      <div class="col-sm-6">
-        <h6 class="mb-3">Cloud Hosting & Databases</h6>
-        <p>
-          <img src="https://img.shields.io/badge/PostgreSQL-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
-          <img src="https://img.shields.io/badge/MySQL-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
-          <img src="https://img.shields.io/badge/AWS-EC2-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="AWS" />
-          <img src="https://img.shields.io/badge/Nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx" />
-          <img src="https://img.shields.io/badge/Gunicorn-%23FFCC00.svg?style=for-the-badge&logo=gunicorn&logoColor=black" alt="Gunicorn" />
-          <img src="https://img.shields.io/badge/Docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-          <img src="https://img.shields.io/badge/Kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes" />
-        </p>
-      </div>
-      <div class="col-sm-6">
-        <h6 class="mb-3">Softwares and Tools</h6>
-        <p>
-          <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" alt="Git" />
-          <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
-          <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" />
-          <img src="https://img.shields.io/badge/MATLAB%20-%23e14e4e.svg?style=for-the-badge&logo=matlab&logoColor=white" alt="MATLAB" />
-        </p>
-      </div>
-      <div class="col-sm-6">
-        <h6 class="mb-3">Networking </h6>
-        <p>
-         <img src="https://img.shields.io/badge/Networking-CISCO-blue" alt="Networking" />
-          <img src="https://img.shields.io/badge/Network%20Design-%2300A1E4.svg?style=for-the-badge&logo=cisco&logoColor=white" alt="Network Design" />
-          <img src="https://img.shields.io/badge/Network%20Troubleshooting-%23FFB300.svg?style=for-the-badge&logo=netlify&logoColor=white" alt="Network Troubleshooting" />
-
-        </p>
-      </div>
-      <div class="col-sm-6">
-        <h6 class="mb-3">IoT Development</h6>
-        <p>
-
-          <img src="https://img.shields.io/badge/LoRaWAN-%23A616B3.svg?style=for-the-badge&logo=lorawan&logoColor=white" alt="LoRaWAN" />
-          <img src="https://img.shields.io/badge/Raspberry%20Pi-%23C51A4A.svg?style=for-the-badge&logo=raspberrypi&logoColor=white" alt="Raspberry Pi" />
-          <img src="https://img.shields.io/badge/Arduino-%23C72C27.svg?style=for-the-badge&logo=arduino&logoColor=white" alt="Arduino" />
-          <img src="https://img.shields.io/badge/ESP32-%2300A3E0.svg?style=for-the-badge&logo=espressif&logoColor=white" alt="ESP32" />
-          <img src="https://img.shields.io/badge/GSM-%23FFD700.svg?style=for-the-badge&logo=mobile&logoColor=white" alt="GSM" />
-
-        </p>
-      </div>
-      <div class="col-sm-6">
-        <h6 class="mb-3">AI Expertise</h6>
-        <p>
-          <img src="https://img.shields.io/badge/Computer%20Vision-%23007C92.svg?style=for-the-badge&logo=visual-studio&logoColor=white" alt="Computer Vision" />
-          <img src="https://img.shields.io/badge/Machine%20Learning-%23FF5722.svg?style=for-the-badge&logo=google-cloud&logoColor=white" alt="Machine Learning" />
-          <img src="https://img.shields.io/badge/NLP-%23D50000.svg?style=for-the-badge&logo=google-cloud&logoColor=white" alt="Natural Language Processing" />
-          <img src="https://img.shields.io/badge/Voice%20Recognition-%232AB0FF.svg?style=for-the-badge&logo=google-assistant&logoColor=white" alt="Voice Recognition" />
-          <img src="https://img.shields.io/badge/Model%20Development-%233B5998.svg?style=for-the-badge&logo=facebook&logoColor=white" alt="Model Development" />
-
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End of Skills section -->
-
-
-    <!-- Portfolio section -->
-    <section id="portfolio" class="section">
-      <div class="container text-center">
-        <h6 class="subtitle">Portfolio</h6>
-        <h6 class="section-title mb-4">Check My Wonderful Works</h6>
-        <p class="mb-5 pb-4">
-
-            I have worked on various IoT and Web Application projects that demonstrate my skills in Software Engineering. Here, you'll find a curated selection of my most notable projects, each with its github link and url for live demos.
-        </p>
-
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="img-wrapper">
-              <img src="assets/imgs/folio-1.png" alt="" />
-              <div class="overlay">
-                <div class="overlay-infos">
-                  <h5>Pingit</h5>
-                  <a href="www.pingit.co.zw"><i class="ti-zoom-in"></i></a>
-                  <a href="www.github.com/alenstein/pingit.git"><i class="ti-link"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="img-wrapper">
-              <img src="assets/imgs/folio-2.png" alt="" />
-              <div class="overlay">
-                <div class="overlay-infos">
-                  <h5>Water Pipelines Monitoring and Protection System</h5>
-                  <a href="http://16.16.198.132:8000/dashboard/"><i class="ti-zoom-in"></i></a>
-                  <a href="https://github.com/alenstein/SCADA_PROTOTYPE_A"><i class="ti-link"></i></a>
-                </div>
-              </div>
-            </div>
+        <!-- Achievement Stats -->
+        <div class="grid grid-cols-3 gap-8 mt-8">
+          <div class="text-center">
+            <h2 class="text-3xl font-bold text-primary">5+</h2>
+            <p class="text-gray-600 dark:text-gray-400">Happy Clients</p>
           </div>
-          <div class="col-sm-4">
-            <div class="img-wrapper">
-              <img src="assets/imgs/folio-3.jpg" alt="" />
-              <div class="overlay">
-                <div class="overlay-infos">
-                  <h5>Accident Reporter</h5>
-                  <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="img-wrapper">
-              <img src="assets/imgs/folio-4.jpg" alt="" />
-              <div class="overlay">
-                <div class="overlay-infos">
-                  <h5>Access Control System</h5>
-                  <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                </div>
-              </div>
-            </div>
+          <div class="text-center">
+            <h2 class="text-3xl font-bold text-primary">12+</h2>
+            <p class="text-gray-600 dark:text-gray-400">Projects Completed</p>
           </div>
-          <div class="col-sm-4">
-            <div class="img-wrapper">
-              <img src="assets/imgs/folio-5.jpg" alt="" />
-              <div class="overlay">
-                <div class="overlay-infos">
-                  <h5>ESP32-CAM based Security System</h5>
-                  <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="img-wrapper">
-              <img src="assets/imgs/folio-6.jpg" alt="" />
-              <div class="overlay">
-                <div class="overlay-infos">
-                  <h5>Thetha Trascription service</h5>
-                  <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                  <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-    <!-- End of portfolio section -->
-
-
-
-<!-- Hire me section -->
-<section class="bg-gray p-0 section">
-  <div class="container">
-    <div class="card bg-primary">
-      <div class="card-body text-light">
-        <div class="row align-items-center">
-          <div class="col-sm-9 text-center text-sm-left">
-            <h5 class="mt-3">Let’s Bring Your Project to Life!</h5>
-            <p class="mb-3">
-              With my expertise in IoT, backend development, and AI, I'm ready to take on your project and drive it to success.
-            </p>
-          </div>
-          <div class="col-sm-3 text-center text-sm-right">
-            <a href="#contact" class="btn btn-light rounded">Hire Me!</a>
+          <div class="text-center">
+            <h2 class="text-3xl font-bold text-primary">8+</h2>
+            <p class="text-gray-600 dark:text-gray-400">Certifications</p>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<!-- End of Hire me section -->
+  </section>
 
-
-    <!-- Contact Section -->
-    <section id="contact" class="position-relative section">
-      <div class="container text-center">
-        <h6 class="subtitle">Contact</h6>
-        <h6 class="section-title mb-4">Get In Touch With Me</h6>
-
-
-        <div class="contact text-left">
-          <div class="form">
-            <h6 class="subtitle">Available 24/7</h6>
-            <h6 class="section-title mb-4">Get In Touch</h6>
-            <form>
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputPassword1"
-                  placeholder="Subject"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <textarea
-                  name="contact-message"
-                  id=""
-                  cols="30"
-                  rows="5"
-                  class="form-control"
-                  placeholder="Message"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                class="btn btn-primary btn-block rounded w-lg"
-              >
-                Send Message
-              </button>
-            </form>
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">About Me</h2>
+      <div class="flex flex-col lg:flex-row items-center">
+        <div class="lg:w-1/2 mb-10 lg:mb-0 animate-slide-up">
+          <div class="lg:pr-10">
+            <h3 class="text-2xl font-bold mb-4 text-primary">My Background</h3>
+            <p class="mb-4">
+              As a 2024 first division Electronic Engineering graduate, I bring a strong foundation in software development,
+              backend engineering, and Information Technology. I am highly motivated and results-oriented, with a passion
+              for building scalable solutions.
+            </p>
+            <p class="mb-6">
+              My curiosity and commitment to innovation drive me to explore and apply advancements in the industry.
+              Equipped with practical experience in Python, Django, and backend engineering, I am eager to contribute
+              effectively to software development teams by building efficient solutions.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-4 py-2 bg-primary/10 text-primary rounded-full">Python</span>
+              <span class="px-4 py-2 bg-primary/10 text-primary rounded-full">Django</span>
+              <span class="px-4 py-2 bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-4 py-2 bg-primary/10 text-primary rounded-full">Backend Development</span>
+            </div>
           </div>
-          <div class="contact-infos">
-            <div class="item">
-              <i class="ti-location-pin"></i>
-              <div class="">
-                <h5>Location</h5>
-                <p>Bulawayo, Zimbabwe</p>
+        </div>
+        <div class="lg:w-1/2 animate-slide-up">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
+              <div class="text-4xl text-primary mb-4">
+                <i class="fas fa-server"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Backend Engineering</h3>
+              <p>Building scalable and efficient backend systems with Python and Django.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
+              <div class="text-4xl text-primary mb-4">
+                <i class="fas fa-microchip"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">IoT Solutions</h3>
+              <p>Developing innovative IoT applications and smart device integrations.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
+              <div class="text-4xl text-primary mb-4">
+                <i class="fas fa-network-wired"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Network Solutions</h3>
+              <p>Implementing secure and efficient network infrastructures.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
+              <div class="text-4xl text-primary mb-4">
+                <i class="fas fa-cloud"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Cloud Deployment</h3>
+              <p>Deploying and managing applications in cloud environments.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Skills &amp; Expertise</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
+        <div class="skill-category animate-slide-up">
+          <h3 class="text-2xl font-bold mb-6">Backend Development</h3>
+
+          <div class="space-y-6">
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Python</span>
+                <span>95%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 95%"></div>
               </div>
             </div>
-            <div class="item">
-              <i class="ti-mobile"></i>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Django</span>
+                <span>75%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">REST APIs</span>
+                <span>65%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Database Design</span>
+                <span>70%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category animate-slide-up" style="animation-delay: 0.2s">
+          <h3 class="text-2xl font-bold mb-6">Cloud & DevOps</h3>
+
+          <div class="space-y-6">
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">AWS</span>
+                <span>60%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 80%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Docker</span>
+                <span>85%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Kubernetes</span>
+                <span>25%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 75%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">CI/CD</span>
+                <span>90%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category animate-slide-up" style="animation-delay: 0.4s">
+          <h3 class="text-2xl font-bold mb-6">IoT Development</h3>
+
+          <div class="space-y-6">
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Arduino</span>
+                <span>95%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Raspberry Pi</span>
+                <span>85%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">ESP32</span>
+                <span>90%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">LoRaWAN</span>
+                <span>65%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-category animate-slide-up" style="animation-delay: 0.6s">
+          <h3 class="text-2xl font-bold mb-6">Other Skills</h3>
+
+          <div class="space-y-6">
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Network Design</span>
+                <span>65%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">System Design</span>
+                <span>66%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Problem Solving</span>
+                <span>95%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 95%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="flex justify-between mb-2">
+                <span class="font-medium">Project Management</span>
+                <span>95%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Featured Projects</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+        <!-- Pingit -->
+        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
+          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
+            <img src="assets/imgs/folio-1.png" alt="Pingit" class="w-full h-full object-cover" />
+          </div>
+          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-white mb-2">Pingit</h3>
+            <p class="text-white text-center mb-4">A modern web application for efficient communication and task management</p>
+            <div class="flex space-x-3">
+              <a href="https://www.pingit.co.zw" target="_blank" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+              <a href="https://www.github.com/alenstein/pingit.git" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <h3 class="text-xl font-bold mb-2">Pingit</h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">PostgreSQL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Water Pipelines Monitoring -->
+        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up" style="animation-delay: 0.2s">
+          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
+            <img src="assets/imgs/folio-2.png" alt="SCADA System" class="w-full h-full object-cover" />
+          </div>
+          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-white mb-2">Water Pipelines Monitoring</h3>
+            <p class="text-white text-center mb-4">SCADA system for monitoring and protecting water pipeline infrastructure</p>
+            <div class="flex space-x-3">
+              <a href="https://alenstein.pythonanywhere.com/authentication/login/?next=/dashboard/" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+              <a href="https://github.com/alenstein/SCADA_PROTOTYPE_A" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <h3 class="text-xl font-bold mb-2">Water Pipelines Monitoring</h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">SCADA</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESP32-CAM Security System -->
+        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up" style="animation-delay: 0.4s">
+          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
+            <img src="assets/imgs/folio-5.jpg" alt="Security System" class="w-full h-full object-cover" />
+          </div>
+          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-white mb-2">ESP32-CAM Security System</h3>
+            <p class="text-white text-center mb-4">Smart security system using ESP32-CAM with real-time monitoring</p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <h3 class="text-xl font-bold mb-2">ESP32-CAM Security System</h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">ESP32</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Computer Vision</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Projects (Hidden by Default) -->
+        <div class="project-card hidden relative rounded-xl overflow-hidden shadow-lg group animate-slide-up" data-additional="true">
+          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
+            <img src="assets/imgs/folio-3.jpg" alt="Accident Reporter" class="w-full h-full object-cover" />
+          </div>
+          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-white mb-2">Accident Reporter</h3>
+            <p class="text-white text-center mb-4">A system for reporting and tracking road accidents in real-time</p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <h3 class="text-xl font-bold mb-2">Accident Reporter</h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Google Maps API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card hidden relative rounded-xl overflow-hidden shadow-lg group animate-slide-up" data-additional="true">
+          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
+            <img src="assets/imgs/folio-4.jpg" alt="Access Control System" class="w-full h-full object-cover" />
+          </div>
+          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-white mb-2">Access Control System</h3>
+            <p class="text-white text-center mb-4">Smart access control system with RFID and facial recognition</p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <h3 class="text-xl font-bold mb-2">Access Control System</h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">OpenCV</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card hidden relative rounded-xl overflow-hidden shadow-lg group animate-slide-up" data-additional="true">
+          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
+            <img src="assets/imgs/folio-6.jpg" alt="Thetha Transcription" class="w-full h-full object-cover" />
+          </div>
+          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+            <h3 class="text-xl font-bold text-white mb-2">Thetha Transcription Service</h3>
+            <p class="text-white text-center mb-4">AI-powered audio transcription service with support for Zimbabwe local languages</p>
+            <div class="flex space-x-3">
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+              <a href="#" class="text-white hover:text-gray-200 transition-colors">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <h3 class="text-xl font-bold mb-2">Thetha Transcription Service</h3>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">AI/ML</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12">
+        <button id="view-more-projects" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors duration-300">
+          <span class="view-more-text">View All Projects</span>
+          <span class="view-less-text hidden">Show Less</span>
+          <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Get In Touch</h2>
+
+      <div class="flex flex-col lg:flex-row">
+        <div class="lg:w-1/2 lg:pr-10 mb-10 lg:mb-0 animate-slide-up">
+          <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+          <p class="mb-8 text-lg">
+            Have a project in mind or want to chat? Feel free to reach out using the form or contact me directly.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mr-4">
+                <i class="fas fa-envelope"></i>
+              </div>
               <div>
-                <h5>Phone Number</h5>
-                <p>(+263) 771 258 933</p>
+                <h4 class="font-medium">Email</h4>
+                <p class="text-gray-600 dark:text-gray-400">sibandallen@gmail.com</p>
               </div>
             </div>
-            <div class="item">
-              <i class="ti-email"></i>
-              <div class="mb-0">
-                <h5>Email Address</h5>
-                <p>sibandallen@gmail.com</p>
+
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mr-4">
+                <i class="fas fa-phone"></i>
               </div>
+              <div>
+                <h4 class="font-medium">Phone</h4>
+                <p class="text-gray-600 dark:text-gray-400">(+263) 771 258 933</p>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary mr-4">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h4 class="font-medium">Location</h4>
+                <p class="text-gray-600 dark:text-gray-400">Bulawayo, Zimbabwe</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10">
+            <h4 class="font-medium mb-4">Connect with me</h4>
+            <div class="flex space-x-4">
+              <a href="https://www.linkedin.com/in/allen-sibanda-a5905b149/" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-secondary transition-colors duration-300">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://github.com/alenstein/" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-secondary transition-colors duration-300">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="mailto:sibandallen@gmail.com" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-secondary transition-colors duration-300">
+                <i class="fas fa-envelope"></i>
+              </a>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- End of Contact Section -->
 
-    <!-- Page Footer -->
-    <footer class="page-footer">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-sm-6">
-            <p>
-              Copyright
-              <script>
-                document.write(new Date().getFullYear());
-              </script>
-              &copy;
-              <a href="#" target="_blank">alenstein works</a>
-            </p>
-          </div>
-          <div class="col-sm-6">
-            <div class="socials">
-              <a class="social-item" href="https://www.facebook.com/allen.sibanda.509/"
-                ><i class="ti-facebook"></i
-              ></a>
-              <a class="social-item" href="mailto:sibandallen@gmail.com"
-                ><i class="ti-google"></i
-              ></a>
-              <a class="social-item" href="https://www.github.com/alenstein/"
-                ><i class="ti-github"></i
-              ></a>
-              <a class="social-item" href="https://linkedin.com/in/allensibanda"
-                ><i class="ti-linkedin"></i
-              ></a>
+        <div class="lg:w-1/2 animate-slide-up" style="animation-delay: 0.3s">
+          <form class="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg">
+            <div class="mb-6">
+              <label for="name" class="block text-sm font-medium mb-2">Your Name</label>
+              <input type="text" id="name" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white" placeholder="Your Name">
             </div>
-          </div>
+
+            <div class="mb-6">
+              <label for="email" class="block text-sm font-medium mb-2">Your Email</label>
+              <input type="email" id="email" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white" placeholder="email-address@domain">
+            </div>
+
+            <div class="mb-6">
+              <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+              <input type="text" id="subject" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white" placeholder="Project Inquiry">
+            </div>
+
+            <div class="mb-6">
+              <label for="message" class="block text-sm font-medium mb-2">Message</label>
+              <textarea id="message" rows="5" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white" placeholder="Your message here..."></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-secondary transition-colors duration-300 shadow-md hover:shadow-lg">
+              Send Message
+            </button>
+          </form>
         </div>
       </div>
-    </footer>
-    <!-- End of page footer -->
+    </div>
+  </section>
 
-    <!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
-    <!-- bootstrap 3 affix -->
-    <script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+  <!-- Footer Section -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold">Allen Sibanda</h3>
+          <p class="text-gray-400">
+            Backend Developer specializing in Python, Django, and IoT solutions.
+          </p>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/allen-sibanda-a5905b149/" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/alenstein/" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:sibandallen@gmail.com" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
 
-    <!-- steller js -->
-    <script src="assets/js/steller.js"></script>
-  </body>
+        <div>
+          <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+            <li><a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a></li>
+            <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Projects</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-4">Services</h3>
+          <ul class="space-y-2">
+            <li class="text-gray-400">Backend Development</li>
+            <li class="text-gray-400">IoT Solutions</li>
+            <li class="text-gray-400">API Integration</li>
+            <li class="text-gray-400">Cloud Deployment</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-bold mb-4">Contact Info</h3>
+          <ul class="space-y-2">
+            <li class="text-gray-400">
+              <i class="fas fa-envelope mr-2"></i>
+              sibandallen@gmail.com
+            </li>
+            <li class="text-gray-400">
+              <i class="fas fa-phone mr-2"></i>
+              (+263) 771 258 933
+            </li>
+            <li class="text-gray-400">
+              <i class="fas fa-map-marker-alt mr-2"></i>
+              Bulawayo, Zimbabwe
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+        <p class="text-gray-400">
+          © 2025 Allen Sibanda. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-secondary">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const html = document.documentElement;
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled' ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('darkMode'))) {
+      html.classList.add('dark');
+    }
+
+    darkModeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('darkMode', html.classList.contains('dark') ? 'enabled' : 'disabled');
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      document.body.classList.toggle('overflow-hidden');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Back to top button
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.remove('opacity-0', 'invisible');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'invisible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Intersection Observer for animations
+    const animateElements = document.querySelectorAll('.animate-slide-up');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-active');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    animateElements.forEach(element => {
+      observer.observe(element);
+    });
+
+    // Form submission handling
+    const contactForm = document.querySelector('form');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData);
+
+      try {
+        // Here you would typically send the form data to your backend
+        // For now, we'll just log it to the console
+        console.log('Form submitted:', data);
+
+        // Clear form
+        contactForm.reset();
+
+        // Show success message (you can customize this)
+        alert('Message sent successfully!');
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('There was an error sending your message. Please try again.');
+      }
+    });
+
+    // Add custom styles for skill progress bars animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .animate-slide-up {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .animate-active {
+        animation: slideIn 0.6s ease forwards;
+      }
+
+      .project-card:hover .project-overlay {
+        opacity: 1;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Progress bar animation
+    const observeProgressBars = () => {
+      const progressBars = document.querySelectorAll('.progress');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const width = entry.target.style.width;
+            entry.target.style.width = '0';
+            setTimeout(() => {
+              entry.target.style.width = width;
+            }, 100);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      progressBars.forEach(bar => observer.observe(bar));
+    };
+
+    // Initialize animations when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      observeProgressBars();
+    });
+
+    // View More Projects functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const viewMoreBtn = document.getElementById('view-more-projects');
+      const additionalProjects = document.querySelectorAll('.project-card[data-additional="true"]');
+      const viewMoreText = viewMoreBtn.querySelector('.view-more-text');
+      const viewLessText = viewMoreBtn.querySelector('.view-less-text');
+      let isExpanded = false;
+
+      viewMoreBtn.addEventListener('click', function() {
+        isExpanded = !isExpanded;
+
+        additionalProjects.forEach((project, index) => {
+          if (isExpanded) {
+            project.classList.remove('hidden');
+            // Add staggered animation delay
+            project.style.animationDelay = `${index * 0.2}s`;
+          } else {
+            project.classList.add('hidden');
+            project.style.animationDelay = '0s';
+          }
+        });
+
+        // Toggle button text
+        viewMoreText.classList.toggle('hidden');
+        viewLessText.classList.toggle('hidden');
+
+        // Smooth scroll to new content if expanding
+        if (isExpanded) {
+          const lastVisibleProject = additionalProjects[additionalProjects.length - 1];
+          lastVisibleProject.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+</body>
 </html>

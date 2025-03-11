@@ -80,6 +80,7 @@
 
 
 
+
 *,
 *::before,
 *::after {
@@ -527,12 +528,16 @@ mark,
 }
 
 .img-thumbnail {
-  padding: 0.25rem;
+  padding: 20%;
   background-color: #fff;
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
+  border: 1px solid #ff7a57;
+  border-radius: 50%;
   max-width: 100%;
   height: auto;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 .figure {
@@ -593,7 +598,7 @@ pre code {
 .container {
   width: 100%;
   padding-right: 15px;
-  padding-left: 15px;
+  padding-left: 2px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -11555,6 +11560,14 @@ pre {
       -ms-flex-align: end;
           align-items: flex-end;
   padding-left: 0px;
+}
+
+.img-holder {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 .header .container .img-holder img {
