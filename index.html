@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com https://drive.google.com https://*.googleusercontent.com; frame-src 'self' https://www.youtube.com https://trytako.com https://drive.google.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Allen Sibanda - Portfolio</title>
@@ -44,6 +44,20 @@
   </script>
   <style>
     /* Navigation Styles */
+    .pitch-video-container {
+      /* Squircle-like shape using border-radius */
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(255, 122, 87, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .pitch-video-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(255, 122, 87, 0.3);
+    }
+
     .nav-link {
       position: relative;
       color: #4B5563;
@@ -162,6 +176,7 @@
       <nav class="hidden lg:flex space-x-8">
         <a href="#home" class="nav-link">Home</a>
         <a href="#about" class="nav-link">About</a>
+        <a href="#pitch" class="nav-link">Pitch</a>
         <a href="#skills" class="nav-link">Skills</a>
         <a href="#projects" class="nav-link">Projects</a>
         <a href="#contact" class="nav-link">Contact</a>
@@ -173,6 +188,7 @@
       <div class="container mx-auto px-4 py-2 flex flex-col space-y-2">
         <a href="#home" class="mobile-nav-link py-2">Home</a>
         <a href="#about" class="mobile-nav-link py-2">About</a>
+        <a href="#pitch" class="mobile-nav-link py-2">Pitch</a>
         <a href="#skills" class="mobile-nav-link py-2">Skills</a>
         <a href="#projects" class="mobile-nav-link py-2">Projects</a>
         <a href="#contact" class="mobile-nav-link py-2">Contact</a>
@@ -253,9 +269,25 @@
   <section id="about" class="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <div class="container mx-auto px-4">
       <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">About Me</h2>
-      <div class="flex flex-col lg:flex-row items-center">
-        <div class="lg:w-1/2 mb-10 lg:mb-0 animate-slide-up">
-          <div class="lg:pr-10">
+
+      <!-- Two-column layout for desktop -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Left Column: Pitch Video and Background -->
+        <div class="animate-slide-up">
+          <!-- Pitch Video Container -->
+          <div id="pitch" class="pitch-video-container mb-8 overflow-hidden" style="aspect-ratio: 16/9;">
+            <div id="pitch-placeholder" class="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex flex-col items-center justify-center p-6 cursor-pointer" onclick="loadPitchVideo()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mb-4">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+              <p class="text-lg font-medium text-primary">Click to load pitch</p>
+            </div>
+            <div id="pitch-video-container" class="w-full h-full hidden"></div>
+          </div>
+
+          <!-- My Background Section -->
+          <div>
             <h3 class="text-2xl font-bold mb-4 text-primary">My Background</h3>
             <p class="mb-4">
               As a 2024 first division Electronic Engineering graduate, I bring a strong foundation in software development,
@@ -272,11 +304,12 @@
               <span class="px-4 py-2 bg-primary/10 text-primary rounded-full">Django</span>
               <span class="px-4 py-2 bg-primary/10 text-primary rounded-full">IoT</span>
               <span class="px-4 py-2 bg-primary/10 text-primary rounded-full">Backend Engineering</span>
-
             </div>
           </div>
         </div>
-        <div class="lg:w-1/2 animate-slide-up">
+
+        <!-- Right Column: Service Cards -->
+        <div class="animate-slide-up">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
               <div class="text-4xl text-primary mb-4">
@@ -545,7 +578,7 @@
           <img src="assets/imgs/folio-2.png" alt="SCADA System" class="w-full h-full object-cover" />
         </div>
         <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <h3 class="text-xl font-bold text-white mb-2">Water Pipelines Monitoring</h3>
+          <h3 class="text-xl font-bold text-white mb-2">Smart Water Infrastructure Management System</h3>
           <p class="text-white text-center mb-4">SCADA system for monitoring and protecting water pipeline infrastructure</p>
           <div class="flex space-x-3">
             <a href="https://alenstein.pythonanywhere.com/authentication/login/?next=/dashboard/" target="_blank" class="text-white hover:text-gray-200 transition-colors">
@@ -557,7 +590,7 @@
           </div>
         </div>
         <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-          <h3 class="text-xl font-bold mb-2">Water Pipelines Monitoring</h3>
+          <h3 class="text-xl font-bold mb-2">Smart Water Infrastructure Management System</h3>
           <div class="flex flex-wrap gap-2 mt-2">
             <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
             <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">SCADA</span>
@@ -658,7 +691,7 @@
         </div>
         <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <h3 class="text-xl font-bold text-white mb-2">ESP32-CAM Security System</h3>
-          <p class="text-white text-center mb-4">Smart security system using ESP32-CAM with real-time monitoring and theft reporting/p>
+          <p class="text-white text-center mb-4">Smart security system using ESP32-CAM with real-time monitoring and theft reporting</p>
           <div class="flex space-x-3">
             <a href="#" class="text-white hover:text-gray-200 transition-colors">
               <i class="fas fa-external-link-alt"></i>
@@ -766,7 +799,7 @@
 
             <div class="mb-6">
               <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
-              <input type="text" id="subject" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white" name="subjec" placeholder="Project Inquiry">
+              <input type="text" id="subject" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:text-white" name="subject" placeholder="Project Inquiry">
             </div>
 
             <div class="mb-6">
@@ -975,7 +1008,53 @@
         }
       });
     });
+
+    // Function to load the pitch video
+    function loadPitchVideo() {
+      const placeholder = document.getElementById('pitch-placeholder');
+      const videoContainer = document.getElementById('pitch-video-container');
+
+      // Hide the placeholder
+      placeholder.classList.add('hidden');
+
+      // Show the video container
+      videoContainer.classList.remove('hidden');
+
+      // First show a loading animation
+      const videoMessage = document.createElement('div');
+      videoMessage.className = 'w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-br from-primary/30 to-primary/50';
+      videoMessage.innerHTML = `
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto mb-4"></div>
+          <p class="text-lg font-medium text-primary mb-2">Loading pitch video...</p>
+        </div>
+      `;
+
+      // Add the loading message to the video container
+      videoContainer.appendChild(videoMessage);
+
+      // Load the Google Drive video after a short delay to show the loading animation
+      setTimeout(() => {
+        // Create a responsive container for the Google Drive video
+        const responsiveContainer = document.createElement('div');
+        responsiveContainer.className = 'w-full h-full';
+
+        // Create an iframe for the Google Drive video
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://drive.google.com/file/d/1J27rgfeZAuxvSsxyu1jptxICW9gaEJAN/preview';
+        iframe.className = 'w-full h-full rounded-2xl';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.frameBorder = '0';
+
+        // Add the iframe to the responsive container
+        responsiveContainer.appendChild(iframe);
+
+        // Replace the loading message with the responsive container
+        videoContainer.innerHTML = '';
+        videoContainer.appendChild(responsiveContainer);
+      }, 1500); // Show loading animation for 1.5 seconds
+    }
   </script>
 </body>
 </html>
-
