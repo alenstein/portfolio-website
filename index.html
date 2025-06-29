@@ -151,6 +151,135 @@
       3%, 24% { opacity: 1; transform: translateY(0); }
       30%, 100% { opacity: 0; transform: translateY(-20px); }
     }
+
+    .home-animated-bg {
+      background: linear-gradient(-45deg, #ff7a57 0%, #6366f1 40%, #ffb347 70%, #43e97b 100%);
+      background-size: 400% 400%;
+      animation: gradientBG 18s ease-in-out infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .blob-1 { animation: blobMove1 24s ease-in-out infinite alternate; }
+    .blob-2 { animation: blobMove2 28s ease-in-out infinite alternate; }
+    .blob-3 { animation: blobMove3 32s ease-in-out infinite alternate; }
+    .blob-4 { animation: blobMove4 30s ease-in-out infinite alternate; }
+    @keyframes blobMove1 {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-40px) scale(1.08); }
+    }
+    @keyframes blobMove2 {
+      0% { transform: translateX(0) scale(1); }
+      100% { transform: translateX(-60px) scale(1.12); }
+    }
+    @keyframes blobMove3 {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(50px) scale(1.05); }
+    }
+    @keyframes blobMove4 {
+      0% { transform: translateX(0) scale(1); }
+      100% { transform: translateX(40px) scale(1.09); }
+    }
+    .noise-overlay {
+      background-image: url('https://www.transparenttextures.com/patterns/noise.png');
+      opacity: 0.18;
+      mix-blend-mode: multiply;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+    .avatar-glow {
+      position: relative;
+      overflow: visible;
+    }
+    .avatar-solid-ring {
+      border: 8px solid rgba(255, 122, 87, 0.45);
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      position: absolute;
+      box-sizing: border-box;
+      z-index: 10;
+      pointer-events: none;
+      transform: scale(1.08);
+    }
+    .avatar-glow-border {
+      pointer-events: none;
+      background: conic-gradient(
+        from 0deg,
+        #ff7a57 0%,
+        #ff7a57 40%,
+        #ffb347 80%,
+        #ff7a57 100%
+      );
+      filter: blur(10px) brightness(1.1);
+      opacity: 0.8;
+      animation: avatarGlowRotate 4s linear infinite;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      position: absolute;
+      z-index: 0;
+      transform: scale(1.15);
+    }
+    @keyframes avatarGlowRotate {
+      0% { transform: rotate(0deg) scale(1.05); }
+      100% { transform: rotate(360deg) scale(1.05); }
+    }
+    #particles-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .project-card {
+      position: relative;
+      transition: box-shadow 0.3s;
+      overflow: visible;
+    }
+    .project-card .card-glow-border {
+      pointer-events: none;
+      background: conic-gradient(
+        from 0deg,
+        #ff7a57 0%,
+        #ff7a57 40%,
+        #ffb347 80%,
+        #ff7a57 100%
+      );
+      filter: blur(8px) brightness(1.1);
+      opacity: 0;
+      animation: avatarGlowRotate 4s linear infinite;
+      border-radius: 1.25rem;
+      position: absolute;
+      inset: -8px;
+      z-index: 1;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover .card-glow-border {
+      opacity: 0.7;
+    }
+    .project-card > *:not(.card-glow-border) {
+      position: relative;
+      z-index: 2;
+    }
+    .p-4.bg-white,
+    .p-4.dark\:bg-gray-800 {
+      position: relative;
+      z-index: 2;
+      background-color: rgba(255,255,255,0.97) !important;
+    }
+    .dark .p-4.dark\:bg-gray-800 {
+      background-color: rgba(31,41,55,0.97) !important;
+    }
   </style>
 </head>
 <body class="bg-light dark:bg-dark text-gray-800 dark:text-gray-200 transition-colors duration-300">
@@ -197,8 +326,11 @@
   </header>
 
   <!-- Hero Section -->
-  <section id="home" class="min-h-screen flex items-center justify-center pt-20 pb-10">
-    <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center">
+  <section id="home" class="min-h-screen flex items-center justify-center pt-20 pb-10 relative overflow-hidden">
+    <!-- Animated Floating Particles Background -->
+    <canvas id="particles-bg" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></canvas>
+    <!-- End Animated Floating Particles Background -->
+    <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10">
       <div class="lg:w-1/2 animate-fade-in mb-10 lg:mb-0">
         <h6 class="text-lg text-primary mb-2">Hi, I'm</h6>
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
@@ -233,7 +365,7 @@
             <a href="https://github.com/alenstein/" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300">
               <i class="fab fa-github text-2xl"></i>
             </a>
-            <a href="mailto:sibandallen@gmail.com" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300">
+            <a href="mailto:admin@sibandallen.co.zw" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors duration-300">
               <i class="fas fa-envelope text-2xl"></i>
             </a>
           </div>
@@ -242,22 +374,24 @@
 
       <!-- Stats Section -->
       <div class="lg:w-1/2 flex flex-col items-center animate-fade-in">
-        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center overflow-hidden">
-          <img src="assets/imgs/avatar.svg" alt="Allen Sibanda" class="w-full h-full object-cover">
+        <div class="avatar-glow w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center relative" style="overflow: visible;">
+          <div class="avatar-solid-ring absolute inset-0 z-10"></div>
+          <img src="assets/imgs/avatar.svg" alt="Allen Sibanda" class="w-full h-full object-cover rounded-full relative z-20">
+          <div class="avatar-glow-border absolute inset-0 rounded-full z-0"></div>
         </div>
 
         <!-- Achievement Stats -->
         <div class="grid grid-cols-3 gap-8 mt-8">
           <div class="text-center">
-            <h2 class="text-3xl font-bold text-primary">5+</h2>
+            <h2 class="text-3xl font-bold text-primary">7+</h2>
             <p class="text-gray-600 dark:text-gray-400">Happy Clients</p>
           </div>
           <div class="text-center">
-            <h2 class="text-3xl font-bold text-primary">12+</h2>
+            <h2 class="text-3xl font-bold text-primary">8+</h2>
             <p class="text-gray-600 dark:text-gray-400">Projects Completed</p>
           </div>
           <div class="text-center">
-            <h2 class="text-3xl font-bold text-primary">8+</h2>
+            <h2 class="text-3xl font-bold text-primary">6+</h2>
             <p class="text-gray-600 dark:text-gray-400">Certifications</p>
           </div>
         </div>
@@ -315,28 +449,28 @@
               <div class="text-4xl text-primary mb-4">
                 <i class="fas fa-server"></i>
               </div>
-              <h3 class="text-xl font-bold mb-2">Backend Engineering</h3>
+              <h3 class="text-xl font-bold mb-2 text-primary">Backend Engineering</h3>
               <p>Building scalable and efficient backend systems with Python and Django.</p>
             </div>
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
               <div class="text-4xl text-primary mb-4">
                 <i class="fas fa-microchip"></i>
               </div>
-              <h3 class="text-xl font-bold mb-2">IoT Solutions</h3>
+              <h3 class="text-xl font-bold mb-2 text-primary">IoT Solutions</h3>
               <p>Developing innovative IoT applications and smart device integrations.</p>
             </div>
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
               <div class="text-4xl text-primary mb-4">
                 <i class="fas fa-network-wired"></i>
               </div>
-              <h3 class="text-xl font-bold mb-2">Network Solutions</h3>
+              <h3 class="text-xl font-bold mb-2 text-primary">Network Solutions</h3>
               <p>Implementing secure and efficient network infrastructures.</p>
             </div>
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg">
               <div class="text-4xl text-primary mb-4">
                 <i class="fas fa-cloud"></i>
               </div>
-              <h3 class="text-xl font-bold mb-2">Cloud Deployment</h3>
+              <h3 class="text-xl font-bold mb-2 text-primary">Cloud Deployment</h3>
               <p>Deploying and managing applications in cloud environments.</p>
             </div>
           </div>
@@ -352,12 +486,12 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
         <div class="skill-category animate-slide-up">
-          <h3 class="text-2xl font-bold mb-6">Backend Development</h3>
+          <h3 class="text-2xl font-bold mb-6 text-primary">Backend Development</h3>
 
           <div class="space-y-6">
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Python</span>
+                <span class="font-medium text-primary">Python</span>
                 <span>95%</span>
               </div>
               <div class="progress-bar">
@@ -367,7 +501,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Django</span>
+                <span class="font-medium text-primary">Django</span>
                 <span>75%</span>
               </div>
               <div class="progress-bar">
@@ -377,7 +511,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">REST APIs</span>
+                <span class="font-medium text-primary">REST APIs</span>
                 <span>65%</span>
               </div>
               <div class="progress-bar">
@@ -387,7 +521,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Database Design</span>
+                <span class="font-medium text-primary">Database Design</span>
                 <span>70%</span>
               </div>
               <div class="progress-bar">
@@ -398,12 +532,12 @@
         </div>
 
         <div class="skill-category animate-slide-up" style="animation-delay: 0.2s">
-          <h3 class="text-2xl font-bold mb-6">Cloud & DevOps</h3>
+          <h3 class="text-2xl font-bold mb-6 text-primary">Cloud & DevOps</h3>
 
           <div class="space-y-6">
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">AWS</span>
+                <span class="font-medium text-primary">AWS</span>
                 <span>60%</span>
               </div>
               <div class="progress-bar">
@@ -413,7 +547,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Docker</span>
+                <span class="font-medium text-primary">Docker</span>
                 <span>85%</span>
               </div>
               <div class="progress-bar">
@@ -423,7 +557,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Kubernetes</span>
+                <span class="font-medium text-primary">Kubernetes</span>
                 <span>25%</span>
               </div>
               <div class="progress-bar">
@@ -433,7 +567,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">CI/CD</span>
+                <span class="font-medium text-primary">CI/CD</span>
                 <span>90%</span>
               </div>
               <div class="progress-bar">
@@ -444,12 +578,12 @@
         </div>
 
         <div class="skill-category animate-slide-up" style="animation-delay: 0.4s">
-          <h3 class="text-2xl font-bold mb-6">IoT Development</h3>
+          <h3 class="text-2xl font-bold mb-6 text-primary">IoT Development</h3>
 
           <div class="space-y-6">
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Arduino</span>
+                <span class="font-medium text-primary">Arduino</span>
                 <span>95%</span>
               </div>
               <div class="progress-bar">
@@ -459,7 +593,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Raspberry Pi</span>
+                <span class="font-medium text-primary">Raspberry Pi</span>
                 <span>85%</span>
               </div>
               <div class="progress-bar">
@@ -469,7 +603,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">ESP32</span>
+                <span class="font-medium text-primary">ESP32</span>
                 <span>90%</span>
               </div>
               <div class="progress-bar">
@@ -479,7 +613,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">LoRaWAN</span>
+                <span class="font-medium text-primary">LoRaWAN</span>
                 <span>65%</span>
               </div>
               <div class="progress-bar">
@@ -490,12 +624,12 @@
         </div>
 
         <div class="skill-category animate-slide-up" style="animation-delay: 0.6s">
-          <h3 class="text-2xl font-bold mb-6">Other Skills</h3>
+          <h3 class="text-2xl font-bold mb-6 text-primary">Other Skills</h3>
 
           <div class="space-y-6">
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Network Design</span>
+                <span class="font-medium text-primary">Network Design</span>
                 <span>65%</span>
               </div>
               <div class="progress-bar">
@@ -505,7 +639,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">System Design</span>
+                <span class="font-medium text-primary">System Design</span>
                 <span>66%</span>
               </div>
               <div class="progress-bar">
@@ -515,7 +649,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Problem Solving</span>
+                <span class="font-medium text-primary">Problem Solving</span>
                 <span>95%</span>
               </div>
               <div class="progress-bar">
@@ -525,7 +659,7 @@
 
             <div class="skill-item">
               <div class="flex justify-between mb-2">
-                <span class="font-medium">Project Management</span>
+                <span class="font-medium text-primary">Project Management</span>
                 <span>95%</span>
               </div>
               <div class="progress-bar">
@@ -545,260 +679,255 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
         <!-- 1. Pingit -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/folio-1.png" alt="Pingit" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Pingit</h3>
-            <p class="text-white text-center mb-4">Modern web-based platform that enables businesses to efficiently send and manage large-scale SMS campaigns with real-time tracking and analytics.</p>
-            <div class="flex space-x-3">
-              <a href="https://www.pingit.co.zw" target="_blank" class="text-white hover:text-gray-200 transition-colors">
-                <i class="fas fa-external-link-alt"></i>
-              </a>
-              <a href="https://www.github.com/alenstein/pingit.git" target="_blank" class="text-white hover:text-gray-200 transition-colors">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/folio-1.png" alt="Pingit" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">Modern web-based platform that enables businesses to efficiently send and manage large-scale SMS campaigns with real-time tracking and analytics.</p>
+              <div class="flex space-x-3">
+                <a href="https://www.pingit.co.zw" target="_blank" class="text-white hover:text-gray-200 transition-colors">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://www.github.com/alenstein/pingit.git" target="_blank" class="text-white hover:text-gray-200 transition-colors">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">Pingit</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Pingit</h3>
             <div class="flex flex-wrap gap-2 mt-2">
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">PostgreSQL</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
 
         <!-- 2. Smart Water Infrastructure System -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/folio-2.png" alt="SCADA System" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Smart Water Infrastructure Management System</h3>
-            <p class="text-white text-center mb-4">SCADA system for monitoring and protecting water pipeline infrastructure</p>
-            <div class="flex space-x-3">
-              <a href="https://alenstein.pythonanywhere.com/authentication/login/?next=/dashboard/" target="_blank" class="text-white hover:text-gray-200 transition-colors">
-                <i class="fas fa-external-link-alt"></i>
-              </a>
-              <a href="https://github.com/alenstein/SCADA_PROTOTYPE_A" target="_blank" class="text-white hover:text-gray-200 transition-colors">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/folio-2.png" alt="SCADA System" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">SCADA system for monitoring and protecting water pipeline infrastructure</p>
+              <div class="flex space-x-3">
+                <a href="https://alenstein.pythonanywhere.com/authentication/login/?next=/dashboard/" target="_blank" class="text-white hover:text-gray-200 transition-colors">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://github.com/alenstein/SCADA_PROTOTYPE_A" target="_blank" class="text-white hover:text-gray-200 transition-colors">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">Smart Water Infrastructure Management System</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Smart Water Infrastructure System</h3>
             <div class="flex flex-wrap gap-2 mt-2">
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">SCADA</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
 
         <!-- 3. Thetha Transcription -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
-            <img src="assets/imgs/coming_soon.jpg" alt="Thetha Transcription" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Thetha Transcription Service</h3>
-            <p class="text-white text-center mb-4">AI-powered audio transcription service with support for Zimbabwe local languages</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Thetha Transcription Service">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/coming_soon.jpg" alt="Thetha Transcription" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">AI-powered audio transcription service with support for Zimbabwe local languages</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Thetha Transcription Service">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">Thetha Transcription Service</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Thetha Transcription</h3>
             <div class="flex flex-wrap gap-2 mt-2">
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">AI</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">AI/ML</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Docker</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">CI/CD</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">PostgreSQL</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Machine Learning</span>
             </div>
           </div>
         </div>
 
         <!-- 4. Hydro Guard System -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/HydroGuardSystem.png" alt="Hydro Guard System" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Hydro Guard System</h3>
-            <p class="text-white text-center mb-4">This SCADA prototype web application addresses the critical issues of manual hard water pumping, which leads to frequent breakdowns, increased downtime, and unreliable water supply. It introduces automated monitoring and remote control, providing real-time data visualization to prevent failures and optimize operations.</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Hydro Guard System">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/HydroGuardSystem.png" alt="Hydro Guard System" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">This SCADA prototype web application addresses the critical issues of manual hard water pumping, which leads to frequent breakdowns, increased downtime, and unreliable water supply. It introduces automated monitoring and remote control, providing real-time data visualization to prevent failures and optimize operations.</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Hydro Guard System">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">Hydro Guard System</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Hydro Guard System</h3>
             <div class="flex flex-wrap gap-2 mt-2">
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Web sockets</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">AWS</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">ESP32</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
 
         <!-- 5. Fintralitix -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/fintralitix.png" alt="fintralitix" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">fintralitix</h3>
-            <p class="text-white text-center mb-4">This is an intuitive web application designed to help recent graduates and young professionals effectively manage their finances, track personal goals, and organize daily routines. Built to give a centralized hub for a well-balanced and productive post-graduate life.</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="fintralitix">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/fintralitix.png" alt="fintralitix" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">This is an intuitive web application designed to help recent graduates and young professionals effectively manage their finances, track personal goals, and organize daily routines. Built to give a centralized hub for a well-balanced and productive post-graduate life.</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="fintralitix">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">fintralitix</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Fintralitix</h3>
             <div class="flex flex-wrap gap-2 mt-2">
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Supabase</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">React</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">JS</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Contabo</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Deployment</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
 
         <!-- 6. CI/CD Pipeline -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/ci_pipeline.png" alt="CI/CD pipeline" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">CI/CD pipeline</h3>
-            <p class="text-white text-center mb-4">This project focuses on the design and implementation of a Continuous Integration (CI) and Continuous deployment pipeline to automate software integration and deployment processes. The goal is to enhance code quality, provide real-time feedback, and streamline the software development lifecycle.</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="CI/CD pipeline">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/ci_pipeline.png" alt="CI/CD pipeline" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">This project focuses on the design and implementation of a Continuous Integration (CI) and Continuous deployment pipeline to automate software integration and deployment processes. The goal is to enhance code quality, provide real-time feedback, and streamline the software development lifecycle.</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="CI/CD pipeline">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">CI/CD pipeline</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">CI/CD Pipeline</h3>
             <div class="flex flex-wrap gap-2 mt-2">
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Slack integration</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Asana Integration</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Github actions</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">AWS</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Docker</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Kubernetes</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">CI/CD</span>
             </div>
           </div>
         </div>
 
         <!-- 7. Towerlights Fault Detection System -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/tlmafds.png" alt="Towerlights Fault Detection System" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Towerlights Fault Detection System</h3>
-            <p class="text-white text-center mb-4">The Tower Light Monitoring and Fault Detection System is a comprehensive solution for monitoring, controlling, and managing tower lights in real-time.</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Towerlights Fault Detection System">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/tlmafds.png" alt="Towerlights Fault Detection System" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">The Tower Light Monitoring and Fault Detection System is a comprehensive solution for monitoring, controlling, and managing tower lights in real-time.</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Towerlights Fault Detection System">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">Towerlights Fault Detection System</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Towerlights Fault Detection System</h3>
             <div class="flex flex-wrap gap-2 mt-2">
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">ESP32</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">TailwindCSS</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
 
         <!-- 8. Accident Reporter -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/car-accident-reporter.png" alt="Accident Reporter" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Accident Reporter</h3>
-            <p class="text-white text-center mb-4">A system for reporting and tracking road accidents in real-time</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Accident Reporter">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/car-accident-reporter.png" alt="Accident Reporter" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">A system for reporting and tracking road accidents in real-time</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Accident Reporter">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">Accident Reporter</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Accident Reporter</h3>
             <div class="flex flex-wrap gap-2 mt-2">
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Google Maps API</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
 
         <!-- 9. Access Control System -->
-        <div class="project-card relative rounded-xl overflow-hidden shadow-lg group animate-slide-up">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-4xl text-gray-500 dark:text-gray-400">
-            <img src="assets/imgs/mfa_access_control.jpg" alt="Access Control System" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">Access Control System</h3>
-            <p class="text-white text-center mb-4">Smart access control system with RFID and facial recognition</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Access Control System">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card group relative rounded-xl overflow-hidden shadow-lg animate-slide-up">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/mfa_access_control.jpg" alt="Access Control System" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">Smart access control system with RFID and facial recognition</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="Access Control System">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">Access Control System</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">Access Control System</h3>
             <div class="flex flex-wrap gap-2 mt-2">
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">OpenCV</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Django</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
 
         <!-- 10. ESP32-CAM Security System (hidden by default) -->
-        <div class="project-card hidden relative rounded-xl overflow-hidden shadow-lg group animate-slide-up" data-additional="true">
-          <div class="aspect-video bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
-            <img src="assets/imgs/esp32-cam-sec-sys.png" alt="Security System" class="w-full h-full object-cover" />
-          </div>
-          <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h3 class="text-xl font-bold text-white mb-2">ESP32-CAM Security System</h3>
-            <p class="text-white text-center mb-4">Smart security system using ESP32-CAM with real-time monitoring and theft reporting</p>
-            <div class="flex space-x-3">
-              <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="ESP32-CAM Security System">
-                <i class="fab fa-github"></i>
-              </a>
+        <div class="project-card hidden group relative rounded-xl overflow-hidden shadow-lg animate-slide-up" data-additional="true">
+          <div class="card-glow-border"></div>
+          <div class="aspect-video relative">
+            <img src="assets/imgs/esp32-cam-sec-sys.png" alt="Security System" class="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0" />
+            <div class="project-overlay absolute inset-0 bg-primary/90 flex flex-col items-center justify-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p class="text-white text-center mb-4 text-primary">Smart security system using ESP32-CAM with real-time monitoring and theft reporting</p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-white hover:text-gray-200 transition-colors github-private-link" data-project="ESP32-CAM Security System">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
           <div class="p-4 bg-white dark:bg-gray-800 transition-colors duration-300">
-            <h3 class="text-xl font-bold mb-2">ESP32-CAM Security System</h3>
+            <h3 class="text-xl font-bold mb-2 text-primary">ESP32-CAM Security System</h3>
             <div class="flex flex-wrap gap-2 mt-2">
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">ESP32</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Python</span>
               <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">IoT</span>
-              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Computer Vision</span>
+              <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">Backend Engineering</span>
             </div>
           </div>
         </div>
@@ -834,7 +963,7 @@
               </div>
               <div>
                 <h4 class="font-medium">Email</h4>
-                <p class="text-gray-600 dark:text-gray-400">sibandallen@gmail.com</p>
+                <p class="text-gray-600 dark:text-gray-400">admin@sibandallen.co.zw</p>
               </div>
             </div>
 
@@ -868,7 +997,7 @@
               <a href="https://github.com/alenstein/" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-secondary transition-colors duration-300">
                 <i class="fab fa-github"></i>
               </a>
-              <a href="mailto:sibandallen@gmail.com" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-secondary transition-colors duration-300">
+              <a href="mailto:admin@sibandallen.co.zw" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-secondary transition-colors duration-300">
                 <i class="fas fa-envelope"></i>
               </a>
             </div>
@@ -922,7 +1051,7 @@
             <a href="https://github.com/alenstein/" class="text-gray-400 hover:text-white transition-colors">
               <i class="fab fa-github"></i>
             </a>
-            <a href="mailto:sibandallen@gmail.com" class="text-gray-400 hover:text-white transition-colors">
+            <a href="mailto:admin@sibandallen.co.zw" class="text-gray-400 hover:text-white transition-colors">
               <i class="fas fa-envelope"></i>
             </a>
           </div>
@@ -955,7 +1084,7 @@
           <ul class="space-y-2">
             <li class="text-gray-400">
               <i class="fas fa-envelope mr-2"></i>
-              sibandallen@gmail.com
+              admin@sibandallen.co.zw
             </li>
             <li class="text-gray-400">
               <i class="fas fa-phone mr-2"></i>
@@ -1162,6 +1291,57 @@
         });
       });
     });
+
+    // Animated Floating Particles
+    (function() {
+      const canvas = document.getElementById('particles-bg');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let dpr = window.devicePixelRatio || 1;
+      let width = 0, height = 0;
+      function resize() {
+        width = canvas.offsetWidth;
+        height = canvas.offsetHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+      // Particle settings
+      const colors = ['#FF7A57', '#6366F1', '#FFB347', '#43e97b'];
+      const particles = Array.from({length: 28}, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: 8 + Math.random() * 10,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: 0.12 + Math.random() * 0.13,
+        dx: -0.2 + Math.random() * 0.4,
+        dy: -0.2 + Math.random() * 0.4
+      }));
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        for (const p of particles) {
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+          ctx.fillStyle = p.color;
+          ctx.shadowColor = p.color;
+          ctx.shadowBlur = 16;
+          ctx.fill();
+          p.x += p.dx;
+          p.y += p.dy;
+          if (p.x < -20) p.x = width + 20;
+          if (p.x > width + 20) p.x = -20;
+          if (p.y < -20) p.y = height + 20;
+          if (p.y > height + 20) p.y = -20;
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
   </script>
 </body>
 </html>
